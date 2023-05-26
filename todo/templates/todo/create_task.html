@@ -1,0 +1,28 @@
+{% extends 'todo/base.html' %}
+{% block title %}Создать задачу{% endblock %}
+{% block content%}
+    <div class="row justify-content-center align-items-center g-2 text-center">
+        <div class="col-lg-6 col-md-12">
+            <h1 class="mb-4">Создать задачу</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label class="form-label">Имя задачи</label>
+                  <input type="text" name="name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Описание</label>
+                    <textarea class="form-control" name="description" cols="30" rows="5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <input class="form-check-input" type="checkbox" name="important" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Высокий приоритет
+                    </label>
+                  </div>
+                
+                <button type="submit" class="btn btn-primary">Создать таску</button>
+            </form>
+        </div>
+    </div>
+{% endblock%}

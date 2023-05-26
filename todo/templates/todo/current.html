@@ -1,0 +1,23 @@
+{% extends 'todo/base.html' %}
+{% block title %}Список задач{% endblock %}
+{% block content%}
+{% if user.is_authenticated %}
+    <h1 class="mb-4">Список задач</h1>
+    {% if not todos %}
+        <h3>В данный момент задач нет. Ты молодец!</h3>
+        <a role="button" class="btn btn-primary mt-4" href="{% url 'create' %}">Создать задачу</a>
+    {% else %}
+    <div class="list-group">
+        {% for todo in todos %}
+        <a href="{% url 'view_task' todo.id %}" class="list-group-item list-group-item-action {% if todo.important %}list-group-item-warning{% endif %}" aria-current="true">
+            <h3>{{todo.name}}</h3>
+            <p>{{todo.description}}</p>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+{% else %}
+    Вы не авторизованы!
+{% endif %}
+{% endblock%}

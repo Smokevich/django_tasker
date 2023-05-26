@@ -1,0 +1,35 @@
+{% extends 'todo/base.html' %}
+{% block title %}Изменить задачу{% endblock %}
+{% block content%}
+{% if user.is_authenticated %}
+    <div class="row justify-content-center align-items-center g-2 text-center">
+        <div class="col-lg-6 col-md-12">
+            <h1 class="mb-4">Изменить задачу</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label class="form-label">Имя задачи</label>
+                  <input type="text" name="name" value="{{todos.name}}" class="form-control" {% if todos.endtime %}disabled{% endif %}>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Описание</label>
+                    <textarea class="form-control" name="description" cols="30" rows="5" {% if todos.endtime %}disabled{% endif %}>{{todos.description}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <input class="form-check-input" type="checkbox" name="important" id="flexCheckChecked" {% if todos.important %}checked{% endif %} {% if todos.endtime %}disabled{% endif %}>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Высокий приоритет
+                    </label>
+                </div>   
+                {% if not todos.endtime %}
+                <button type="submit" class="btn btn-primary" name="button" value="change">Изменить таску</button>
+                <button type="submit" class="btn btn-success" name="button" value="complete">Завершить таску</button>                
+                {% endif %}
+                <button type="sumbit" class="btn btn-warning" name="button" value="delete">Удалить таску</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    Вы не авторизованы!
+{% endif %}
+{% endblock%}
